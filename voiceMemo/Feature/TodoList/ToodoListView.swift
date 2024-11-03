@@ -6,13 +6,86 @@
 import SwiftUI
 
 struct TodoListView: View {
-  var body: some View {
-    Text("Todo List")
-  }
+    @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var todoListViewModel: TodoListViewModel
+    
+    var body: some View {
+        ZStack {
+            // cell list
+            VStack {
+                if !todoListViewModel.todos.isEmpty {
+                    CustomNavigationBar(
+                        isDisplayLeftBtn: false,
+                        rightBtnAction: {
+                            todoListViewModel.navigationRightBtnTapped()
+                        },
+                        rightBtnType: todoListViewModel.navigationBarRightButtonMode
+                    )
+                } else {
+                    Spacer()
+                        .frame(height: 30)
+                }
+                
+                titleView()
+                
+                AnnounementView()
+            }
+        }
+    }
+    
+//    var titleView: some View { // 프로퍼티 레퍼런스
+//        Text("일정")
+//            .font(.system(size: 20))
+//            .fontWeight(.bold)
+//    }
+    
+//    func titleView() -> some View { // 뷰를 리턴하는 함수 레퍼런스
+//        Text("일정")
+//            .font(.system(size: 20))
+//            .fontWeight(.bold)
+//    }
 }
 
+private struct titleView: View {
+    @EnvironmentObject private var todoListViewModel: TodoListViewModel
+    
+    fileprivate var body: some View {
+        HStack {
+            if todoListViewModel.todos.isEmpty {
+                Text("일정이 없습니다.")
+                    .foregroundColor(.customGray2)
+            } else {
+                Text("일정 \(todoListViewModel.todos.count)개")
+            }
+            
+            Spacer()
+        }
+        .font(.system(size: 30, weight: .bold))
+        .padding(.leading, 20)
+    }
+}
+
+private struct AnnounementView : View {
+    fileprivate var body: some View {
+        VStack(spacing: 15) {
+            Spacer()
+            
+            Image("pencil")
+                .renderingMode(.template)
+            Text("\"예시1\"")
+            Text("\"예시2\"")
+            Text("\"예시3\"")
+            
+            Spacer()
+        }
+        .font(.system(size: 16))
+        .foregroundColor(.customGray2)
+    }
+}
+
+
 struct TodoListView_Previews: PreviewProvider {
-  static var previews: some View {
-    TodoListView()
-  }
+    static var previews: some View {
+        TodoListView()
+    }
 }
