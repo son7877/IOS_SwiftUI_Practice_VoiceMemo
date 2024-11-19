@@ -121,4 +121,68 @@ private struct TodoListContentView: View {
     }
 }
 
+// MARK: - TodoCellView
+private struct TodoCellView: View {
+    @EnvironmentObject private var todoListViewModel: TodoListViewModel
+    @State private var isRemovedSelected: Bool
+    private var todo: Todo
+    
+    fileprivate init(
+        isRemovedSelected: Bool = false,
+        todo: Todo
+    ) {
+        // MARK: 이 부분 다시 살펴보기
+        _isRemovedSelected = State(initialValue: isRemovedSelected)
+        self.todo = todo
+    }
+    
+    fileprivate var body: some View {
+        VStack(spacing: 20) {
+            HStack {
+                if !todoListViewModel.isEditTodoMode {
+                    Button(
+                        action: {
+                            todoListViewModel.selectedBoxTapped(todo)
+                        },
+                        label: {
+                            todo.selected ? Image("selectedBox") : Image("unselectedBox")
+                        }
+                    )
+                }
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(todo.title)
+                        .font(.system(size: 16))
+                        .foregroundStyle(todo.selected ? Color.customIconGray : .black)
+                        .strikethrough(todo.selected)
+                    
+                    Text(todo.convertedDayAndTime)
+                        .font(.system(size: 16))
+                        .foregroundStyle(Color.customIconGray)
+                }
+                
+                Spacer()
+                
+                if todoListViewModel.isEditTodoMode {
+                    Button(
+                        action: {
+                            isRemovedSelected.toggle()
+                            todoListViewModel.todoRemoveSelectedBoxTapped(todo)
+                        },
+                        label: {
+                            isRemovedSelected ? Image("selectedBox") : Image("unselectedBox")
+                        }
+                    )
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 10)
+            
+            Rectangle()
+                .fill(Color.customGray0)
+                .frame(height: 1)
+        }
+    }
+}
+
 

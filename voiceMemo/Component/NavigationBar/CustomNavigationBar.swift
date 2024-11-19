@@ -31,7 +31,7 @@ struct CustomNavigationBar: View {
             if isDisplayLeftBtn{
                 Button(
                     action: leftBtnAction,
-                    label: {Image("leftArrow")
+                    label: { Image("leftArrow")
                         .resizable()
                         .frame(width: 20, height: 20)
                         .foregroundColor(.black)
