@@ -13,11 +13,11 @@ struct CustomNavigationBar: View {
     let rightBtnType: NavigationBtnType
     
     init(
-        isDisplayLeftBtn: Bool,
-        isDisplayRightBtn: Bool ,
-        leftBtnAction: @escaping () -> Void ,
-        rightBtnAction: @escaping () -> Void,
-        rightBtnType: NavigationBtnType
+        isDisplayLeftBtn: Bool = true,
+        isDisplayRightBtn: Bool = true,
+        leftBtnAction: @escaping () -> Void = {},
+        rightBtnAction: @escaping () -> Void = {},
+        rightBtnType: NavigationBtnType = .edit
     ) {
         self.isDisplayLeftBtn = isDisplayLeftBtn
         self.isDisplayRightBtn = isDisplayRightBtn
@@ -31,7 +31,7 @@ struct CustomNavigationBar: View {
             if isDisplayLeftBtn{
                 Button(
                     action: leftBtnAction,
-                    label: {Image("leftArrow")
+                    label: { Image("leftArrow")
                         .resizable()
                         .frame(width: 20, height: 20)
                         .foregroundColor(.black)
