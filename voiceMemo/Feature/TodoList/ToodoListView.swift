@@ -27,9 +27,19 @@ struct TodoListView: View {
                 }
                 
                 titleView()
+                    .padding(.top, 20)
                 
-                AnnounementView()
+                if todoListViewModel.todos.isEmpty {
+                    AnnounementView()
+                } else {
+                    TodoListContentView()
+                        .padding(.top, 20)
+                }
             }
+            
+            AddTodoBtnView()
+                .padding(.trailing, 20)
+                .padding(.bottom, 50)
         }
     }
     
@@ -85,13 +95,6 @@ private struct AnnounementView : View {
     }
 }
 
-
-struct TodoListView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoListView()
-    }
-}
-
 // MARK: - TodoListContentView
 private struct TodoListContentView: View {
     @EnvironmentObject private var todoListViewModel: TodoListViewModel
@@ -114,7 +117,7 @@ private struct TodoListContentView: View {
                     .frame(height: 1)
                 
                 ForEach(todoListViewModel.todos, id: \.self) { todo in
-                    // TodoCellView(todo: todo)
+                    TodoCellView(todo: todo)
                 }
             }
         }
@@ -185,4 +188,34 @@ private struct TodoCellView: View {
     }
 }
 
+// MARK: - AddTodoBtnView
+private struct AddTodoBtnView: View {
+    @EnvironmentObject private var pathModel: PathModel
+    
+    fileprivate var body: some View {
+        VStack {
+            Spacer()
+            
+            HStack {
+                Spacer()
+                
+                Button(
+                    action: {
+                        pathModel.paths.append(.todoView)
+                    },
+                    label: {
+                        Image("writeBtn")
+                    }
+                )
+            }
+        }
+    }
+}
 
+struct TodoListView_Previews: PreviewProvider {
+    static var previews: some View {
+        TodoListView()
+            .environmentObject(PathModel())
+            .environmentObject(TodoListViewModel())
+    }
+}
