@@ -46,6 +46,7 @@ struct TodoListView: View {
 //    }
 }
 
+// MARK: - titleView
 private struct titleView: View {
     @EnvironmentObject private var todoListViewModel: TodoListViewModel
     
@@ -65,6 +66,7 @@ private struct titleView: View {
     }
 }
 
+// MARK: - AnnounementView
 private struct AnnounementView : View {
     fileprivate var body: some View {
         VStack(spacing: 15) {
@@ -89,3 +91,34 @@ struct TodoListView_Previews: PreviewProvider {
         TodoListView()
     }
 }
+
+// MARK: - TodoListContentView
+private struct TodoListContentView: View {
+    @EnvironmentObject private var todoListViewModel: TodoListViewModel
+    
+    fileprivate var body: some View {
+        VStack {
+            HStack {
+                Text("일정 목록")
+                    .font(.system(size:16, weight: .bold))
+                    .padding(.leading, 20)
+                
+                Spacer()
+            }
+        }
+        
+        ScrollView(.vertical) {
+            VStack(spacing: 0) {
+                Rectangle()
+                    .fill(Color.customGray0)
+                    .frame(height: 1)
+                
+                ForEach(todoListViewModel.todos, id: \.self) { todo in
+                    // TodoCellView(todo: todo)
+                }
+            }
+        }
+    }
+}
+
+
