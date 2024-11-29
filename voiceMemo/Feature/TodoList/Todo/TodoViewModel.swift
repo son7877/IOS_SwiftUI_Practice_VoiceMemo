@@ -27,5 +27,6 @@ class TodoViewModel : ObservableObject {
 extension TodoViewModel {
     func setIsDisplayCalendar(_ isDisplay: Bool) {
         isDisplayCalendar = isDisplay
+        
     }
 }
