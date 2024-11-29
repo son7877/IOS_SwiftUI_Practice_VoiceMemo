@@ -12,10 +12,10 @@ class TodoViewModel : ObservableObject {
     @Published var isDisplayCalendar: Bool
     
     init(
-        title: String,
-        time: Date,
-        day: Date,
-        isDisplayCalendar: Bool
+        title: String = "",
+        time: Date = Date(),
+        day: Date = Date(),
+        isDisplayCalendar: Bool = false
     ) {
         self.title = title
         self.time = time
@@ -27,6 +27,5 @@ class TodoViewModel : ObservableObject {
 extension TodoViewModel {
     func setIsDisplayCalendar(_ isDisplay: Bool) {
         isDisplayCalendar = isDisplay
-        
     }
 }
