@@ -75,6 +75,32 @@ private struct MemoTitleInputView: View {
     }
 }
 
+// MARK: - MemoContentInputView
+private struct MemoConentInputView: View {
+    @ObservedObject private var memoViewModel: MemoViewModel
+    
+    fileprivate init(memoViewModel: MemoViewModel) {
+        self.memoViewModel = memoViewModel
+    }
+    
+    fileprivate var body: some View {
+      ZStack(alignment: .topLeading) {
+        TextEditor(text: $memoViewModel.memo.content)
+          .font(.system(size: 20))
+        
+        if memoViewModel.memo.content.isEmpty {
+          Text("메모를 입력하세요.")
+            .font(.system(size: 16))
+            .foregroundColor(.customGray1)
+            .allowsHitTesting(false)
+            .padding(.top, 10)
+            .padding(.leading, 5)
+        }
+      }
+      .padding(.horizontal, 20)
+    }
+}
+
 struct MemoView_Previews: PreviewProvider {
   static var previews: some View {
     MemoView(
