@@ -76,7 +76,7 @@ private struct MemoTitleInputView: View {
 }
 
 // MARK: - MemoContentInputView
-private struct MemoConentInputView: View {
+private struct MemoContentInputView: View {
     @ObservedObject private var memoViewModel: MemoViewModel
     
     fileprivate init(memoViewModel: MemoViewModel) {
