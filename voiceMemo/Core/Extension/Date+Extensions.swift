@@ -23,7 +23,7 @@ extension Date {
         let numOfDaysDifference = calendar.dateComponents([.day], from: nowStartOfDay, to: dateStartOfDay).day!
         
         // 오늘
-        if numOfDaysDifference == 0{
+        if numOfDaysDifference == 0{ 
             return "오늘"
         } else{
             let formatter = DateFormatter()
