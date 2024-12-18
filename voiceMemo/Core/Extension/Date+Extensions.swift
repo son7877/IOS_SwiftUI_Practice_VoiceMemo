@@ -23,7 +23,7 @@ extension Date {
         let numOfDaysDifference = calendar.dateComponents([.day], from: nowStartOfDay, to: dateStartOfDay).day!
         
         // 오늘
-        if numOfDaysDifference == 0{ 
+        if numOfDaysDifference == 0{
             return "오늘"
         } else{
             let formatter = DateFormatter()
@@ -31,5 +31,12 @@ extension Date {
             formatter.dateFormat = "M월 d일 E요일"
             return formatter.string(from: self)
         }
+    }
+    
+    var fommattedVoiceRecorderTime: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy.M.d"
+        return formatter.string(from: self)
     }
 }
