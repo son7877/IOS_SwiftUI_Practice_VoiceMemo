@@ -101,6 +101,39 @@ private struct MemoConentInputView: View {
     }
 }
 
+// MARK: - RemoveMemoBtnView
+private struct RemoveMemoBtnView: View {
+    @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var memoListViewModel: MemoListViewModel
+    @ObservedObject private var memoViewModel: MemoViewModel
+    
+    fileprivate init(memoViewModel: MemoViewModel) {
+        self.memoViewModel = memoViewModel
+    }
+    
+    fileprivate var body: some View {
+        VStack {
+          Spacer()
+          
+          HStack {
+            Spacer()
+            
+            Button(
+              action: {
+                memoListViewModel.removeMemo(memoViewModel.memo)
+                pathModel.paths.removeLast()
+              },
+              label: {
+                Image("trash")
+                  .resizable()
+                  .frame(width: 40, height: 40)
+              }
+            )
+          }
+        }
+    }
+}
+
 struct MemoView_Previews: PreviewProvider {
   static var previews: some View {
     MemoView(
