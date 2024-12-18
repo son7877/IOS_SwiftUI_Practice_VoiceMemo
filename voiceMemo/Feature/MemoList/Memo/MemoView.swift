@@ -12,8 +12,67 @@ struct MemoView: View {
     @State var isCreateMode: Bool = true
  
   var body: some View {
-    Text("Memo")
+      ZStack{
+          VStack{
+              CustomNavigationBar(
+                leftBtnAction: {
+                  pathModel.paths.removeLast()
+                },
+                rightBtnAction: {
+                  if isCreateMode {
+                    memoListViewModel.addMemo(memoViewModel.memo)
+                  } else {
+                    memoListViewModel.updateMemo(memoViewModel.memo)
+                  }
+                  pathModel.paths.removeLast()
+                },
+                rightBtnType: isCreateMode ? .create : .complete
+              )
+              
+              MemoTitleInputView(
+                memoViewModel: memoViewModel,
+                isCreateMode: $isCreateMode
+              )
+              .padding(.top, 20)
+              
+              MemoContentInputView(memoViewModel: memoViewModel)
+                .padding(.top, 10)
+          }
+          
+          if !isCreateMode {
+            RemoveMemoBtnView(memoViewModel: memoViewModel)
+              .padding(.trailing, 20)
+              .padding(.bottom, 10)
+          }
+      }
   }
+}
+
+// MARK: - MemoTitleInputView
+private struct MemoTitleInputView: View {
+    @ObservedObject private var memoViewModel: MemoViewModel // ObservedObject 이유: 뷰가 변경되어야 하는 데이터를 가지고 있기 때문에
+    @FocusState private var isTitleFieldFocused: Bool // FocusState 이유: 키보드가 올라오거나 내려갈 때 포커스 상태를 관리하기 위해
+    @Binding private var isCreateMode: Bool // Binding 이유: 생성모드와 수정모드를 구분하기 위해
+    
+    fileprivate init(memoViewModel: MemoViewModel, isCreateMode: Binding<Bool>) {
+        self.memoViewModel = memoViewModel
+        self._isCreateMode = isCreateMode
+    }
+    
+    fileprivate var body: some View {
+        TextField(
+            "제목",
+            text: $memoViewModel.memo.title
+        )
+        .font(.system(size: 30))
+        .focused($isTitleFieldFocused)
+        .padding(.horizontal, 20)
+        .onAppear() {
+            if isCreateMode {
+                isTitleFieldFocused = true
+            }
+        }
+    }
 }
 
 struct MemoView_Previews: PreviewProvider {
