@@ -156,6 +156,30 @@ private struct MemoCellView: View {
     }
 }
 
+// MARK: - MemoCreateBtnView
+private struct writeMemoBtnView: View {
+    @EnvironmentObject private var pathModel: PathModel
+    
+    fileprivate var body: some View {
+        VStack {
+            Spacer()
+            
+            HStack {
+                Spacer()
+                
+                Button(
+                    action: {
+                        pathModel.paths.append(.memoView(isCreateMode: true, memo: nil))
+                    },
+                    label: {
+                        Image("writeBtn")
+                    }
+                )
+            }
+        }
+    }
+}
+
 struct MemoListView_Previews: PreviewProvider {
     static var previews: some View {
         MemoListView()
