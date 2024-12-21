@@ -226,6 +226,28 @@ private struct VoiceRecorderCellView: View {
     }
 }
 
+// MARK: - ProgressBar
+private struct ProgressBar: View {
+    private var progress: Float
+    
+    fileprivate init(progress: Float) {
+        self.progress = progress
+    }
+    
+    fileprivate var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .fill(Color.customGray2)
+                
+                Rectangle()
+                    .fill(Color.customBlack)
+                    .frame(width: CGFloat(self.progress) * geometry.size.width)
+            }
+        }
+    }
+}
+
 struct VoiceRecorderView_Previews: PreviewProvider {
   static var previews: some View {
     VoiceRecorderView()
