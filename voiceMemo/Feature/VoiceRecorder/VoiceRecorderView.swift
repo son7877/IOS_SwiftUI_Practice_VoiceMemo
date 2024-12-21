@@ -6,10 +6,48 @@
 import SwiftUI
 
 struct VoiceRecorderView: View {
-    @StateObject private var viewModel = VoiceRecorderViewModel()
+    @StateObject private var voiceRecorderViewModel = VoiceRecorderViewModel()
     
     var body: some View {
-        Text("Voice Recorder View")
+        ZStack {
+            VStack {
+                TitleView()
+                
+                if voiceRecorderViewModel.recordedFiles.isEmpty {
+                    AnnounementView()
+                } else {
+                    VoiceRecorderListView(voiceRecorderViewModel: voiceRecorderViewModel)
+                        .padding(.top, 15)
+                }
+                
+                Spacer()
+            }
+            
+            RecordBtnView(voiceRecorderViewModel: voiceRecorderViewModel)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 50)
+        }
+        .alert(
+            "선택한 음성 메모를 삭제하시겠습니까?",
+            isPresented: $voiceRecorderViewModel.isDisplayRemoveVoiceRecorederAlert
+        ) {
+            Button("삭제", role: .destructive) {
+                voiceRecorderViewModel.removeSelectedVoiceRecord()
+            }
+            Button("취소", role: .cancel) {}
+        }
+        .alert(
+            voiceRecorderViewModel.alertMessage,
+            isPresented: $voiceRecorderViewModel.isDisplayAlert
+        ) {
+            Button("확인", role: .cancel) {}
+        }
+//        .onChange(
+//            of: voiceRecorderViewModel.recordedFiles,
+//            perform: { recordedFiles in
+//                
+//            }
+//        )
     }
 }
 
