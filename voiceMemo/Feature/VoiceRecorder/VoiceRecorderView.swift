@@ -28,6 +28,31 @@ private struct TitleView: View {
     }
 }
 
+// MARK: - AnnounementView
+private struct AnnounementView: View {
+    fileprivate var body: some View {
+        VStack(spacing: 15) {
+            Rectangle()
+                .fill(Color.customCoolGray)
+                .frame(height: 1)
+            
+            Spacer()
+                .frame(height: 180)
+            
+            Image("pencil")
+                .renderingMode(.template)
+            Text("음성 메모를 남겨보세요.")
+            Text("녹음 버튼을 눌러 시작하세요.")
+            
+            Spacer()
+        }
+        .font(.system(size: 16))
+        .foregroundStyle(Color.customGray2)
+    }
+}
+
+
+
 struct VoiceRecorderView_Previews: PreviewProvider {
   static var previews: some View {
     VoiceRecorderView()
