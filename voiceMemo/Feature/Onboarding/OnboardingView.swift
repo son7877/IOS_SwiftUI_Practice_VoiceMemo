@@ -8,6 +8,8 @@ import SwiftUI
 struct OnboardingView: View {
     @StateObject private var onboardingViewModel = OnboardingViewModel()
     @StateObject private var pathModel = PathModel()
+    @StateObject private var todoListViewModel = TodoListViewModel()
+    @StateObject private var memoListViewModel = MemoListViewModel()
     
     var body: some View {
         // TODO: - 화면 전환 구현 필요
@@ -25,10 +27,16 @@ struct OnboardingView: View {
                             // 할 일 뷰로 이동
                             TodoView()
                                 .navigationBarBackButtonHidden()
-                        case .memoView:
-                            // 메모 뷰로 이동
-                            MemoView()
-                                .navigationBarBackButtonHidden()
+                                .environmentObject(todoListViewModel)
+                        case let .memoView(isCreateMode, memo):
+                            MemoView(
+                            memoViewModel: isCreateMode
+                            ? .init(memo: .init(title: "", content: "", date: .now))
+                            : .init(memo: memo ?? .init(title: "", content: "", date: .now)),
+                            isCreateMode: isCreateMode
+                            )
+                            .navigationBarBackButtonHidden()
+                            .environmentObject(memoListViewModel)
                         }
                     }
                 )
