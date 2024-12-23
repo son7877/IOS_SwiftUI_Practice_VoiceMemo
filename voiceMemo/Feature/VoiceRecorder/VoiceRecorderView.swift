@@ -45,7 +45,7 @@ struct VoiceRecorderView: View {
 //        .onChange(
 //            of: voiceRecorderViewModel.recordedFiles,
 //            perform: { recordedFiles in
-//                
+//                homeViewModel.setVoiceRecordersCount(recordedFiles.count)
 //            }
 //        )
     }

@@ -18,11 +18,16 @@ class MemoListViewModel: ObservableObject {
         return isEditMemoMode ? .complete : .edit
     }
     
-    init(memos: [Memo], isEditMemoMode: Bool, removeMemos: [Memo], isDisplayRemoveMemoAlert: Bool) {
-        self.memos = memos
-        self.isEditMemoMode = isEditMemoMode
-        self.removeMemos = removeMemos
-        self.isDisplayRemoveMemoAlert = isDisplayRemoveMemoAlert
+    init(
+      memos: [Memo] = [],
+      isEditMemoMode: Bool = false,
+      removeMemos: [Memo] = [],
+      isDisplayRemoveMemoAlert: Bool = false
+    ) {
+      self.memos = memos
+      self.isEditMemoMode = isEditMemoMode
+      self.removeMemos = removeMemos
+      self.isDisplayRemoveMemoAlert = isDisplayRemoveMemoAlert
     }
 }
 
