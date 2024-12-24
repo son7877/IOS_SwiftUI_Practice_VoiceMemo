@@ -41,6 +41,49 @@ private struct TitleView: View {
     }
 }
 
+// MARK: - TimerPickerView
+private struct TimerPickerView: View {
+    @ObservedObject private var timeViewModel: TimerViewModel
+    
+    fileprivate init(timeViewModel: TimerViewModel) {
+        self.timeViewModel = timeViewModel
+    }
+    
+    fileprivate var body: some View {
+        VStack {
+            Rectangle()
+                .fill(Color.customGray2)
+                .frame(height: 1)
+            
+            HStack {
+                Picker("Hour", selection: $timeViewModel.time.hours) {
+                    ForEach(0..<24) {
+                        Text("\($0):")
+                    }
+                }
+                
+                Picker("Minute", selection: $timeViewModel.time.minutes) {
+                    ForEach(0..<60) {
+                        Text("\($0):")
+                    }
+                }
+                
+                Picker("Second", selection: $timeViewModel.time.seconds) {
+                    ForEach(0..<60) {
+                        Text("\($0)")
+                    }
+                }
+            }
+            .labelsHidden()
+            .pickerStyle(.wheel)
+            
+            Rectangle()
+                .fill(Color.customGray2)
+                .frame(height: 1)
+        }
+    }
+}
+
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
         TimerView()
