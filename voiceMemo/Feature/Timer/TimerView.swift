@@ -6,19 +6,23 @@
 import SwiftUI
 
 struct TimerView: View {
-    @StateObject var timeViewModel = TimerViewModel()
+    @StateObject var timerViewModel = TimerViewModel()
     
     var body: some View {
-        Text("Timer")
+        if timerViewModel.isDisplaySetTimerView {
+            SetTimerView(timerViewModel: timerViewModel)
+        } else {
+            TimerOperationView(timerViewModel: timerViewModel)
+        }
     }
 }
 
 // MARK: - SetTimerView
 private struct SetTimerView: View {
-    @ObservedObject private var timeViewModel: TimerViewModel
+    @ObservedObject private var timerViewModel: TimerViewModel
     
-    fileprivate init(timeViewModel: TimerViewModel) {
-        self.timeViewModel = timeViewModel
+    fileprivate init(timerViewModel: TimerViewModel) {
+        self.timerViewModel = timerViewModel
     }
     
     fileprivate var body: some View {
