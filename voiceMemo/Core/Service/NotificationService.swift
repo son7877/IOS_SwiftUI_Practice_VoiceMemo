@@ -5,7 +5,7 @@
 
 import UserNotifications
 
-struct NoficationService {
+struct NotificationService {
      func sendNotification() {
          UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, _ in
              if granted {
