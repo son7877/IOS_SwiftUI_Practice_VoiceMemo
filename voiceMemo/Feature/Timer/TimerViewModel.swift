@@ -38,6 +38,11 @@ extension TimerViewModel {
         startTimer()
     }
     
+    func cancelBtnTapped() {
+        stopTimer()
+        isDisplaySetTimerView = false
+    }
+    
     func pauseOrResumeBtnTapped() {
         if isPaused {
             startTimer()

@@ -103,7 +103,82 @@ private struct TimerCreateBtnView: View {
     }
 }
 
-
+// MARK: - TimerOperationView
+private struct TimerOperationView: View {
+    @ObservedObject private var timerViewModel: TimerViewModel
+    
+    fileprivate init(timerViewModel: TimerViewModel) {
+        self.timerViewModel = timerViewModel
+    }
+    
+    fileprivate var body: some View {
+        VStack {
+            ZStack {
+                VStack {
+                    Text("\(timerViewModel.timeRemaining.formattedTimeString)")
+                        .font(.system(size: 28))
+                        .foregroundStyle(Color.customBlack)
+                        .monospaced() // 고정폭 글꼴로 표시
+                    
+                    HStack(alignment: .bottom) {
+                        Image(systemName: "bell.fill")
+                        
+                        Text("\(timerViewModel.time.convertedSeconds.formattedTimeString)")
+                            .font(.system(size: 16))
+                            .foregroundStyle(Color.customBlack)
+                            .padding(.top, 10)
+                    }
+                }
+                
+                Circle()
+                    .stroke(Color.customGreen, lineWidth: 6)
+                    .frame(width: 350)
+            }
+            
+            Spacer()
+                .frame(height: 10)
+            
+            HStack {
+                Button(
+                    action: {
+                        timerViewModel.cancelBtnTapped()
+                    },
+                    label: {
+                        Text("취소")
+                            .font(.system(size: 16))
+                            .foregroundStyle(Color.customBlack)
+                            .padding(.horizontal, 22)
+                            .padding(.vertical, 25)
+                            .background(
+                                Circle()
+                                    .fill(Color.customGray2.opacity(0.2))
+                            )
+                    }
+                )
+                
+                Spacer()
+                
+                Button(
+                    action: {
+                        timerViewModel.pauseOrResumeBtnTapped()
+                    },
+                    label: {
+                        Image(systemName: timerViewModel.isPaused ? "play.fill" : "pause.fill")
+                            .font(.system(size: 14))
+                            .foregroundStyle(Color.customBlack)
+                            .padding(.horizontal, 7)
+                            .padding(.vertical, 25)
+                            .background(
+                                Circle()
+                                    .fill(Color.customGray2.opacity(0.2))
+                            )
+                    }
+                )
+            }
+            .padding(.horizontal, 20)
+        }
+    }
+}
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
