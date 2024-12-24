@@ -84,6 +84,25 @@ private struct TimerPickerView: View {
     }
 }
 
+// MARK: - TimerCreateBtnView
+private struct TimerCreateBtnView: View {
+    @ObservedObject private var timeViewModel: TimerViewModel
+    
+    fileprivate init(timeViewModel: TimerViewModel) {
+        self.timeViewModel = timeViewModel
+    }
+    
+    fileprivate var body: some View {
+        Button {
+            timeViewModel.settingBtnTapped()
+        } label: {
+            Text("설정")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundStyle(Color.customGreen)
+        }
+    }
+}
+
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
         TimerView()
