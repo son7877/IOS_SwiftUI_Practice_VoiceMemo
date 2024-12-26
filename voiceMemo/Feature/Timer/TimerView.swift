@@ -10,7 +10,7 @@ struct TimerView: View {
     
     var body: some View {
         if timerViewModel.isDisplaySetTimerView {
-            SetTimerView(timerViewModel: timerViewModel)
+            SetTimerView(timeViewModel: timerViewModel)
         } else {
             TimerOperationView(timerViewModel: timerViewModel)
         }
@@ -19,14 +19,26 @@ struct TimerView: View {
 
 // MARK: - SetTimerView
 private struct SetTimerView: View {
-    @ObservedObject private var timerViewModel: TimerViewModel
+    @ObservedObject private var timeViewModel: TimerViewModel
     
-    fileprivate init(timerViewModel: TimerViewModel) {
-        self.timerViewModel = timerViewModel
+    fileprivate init(timeViewModel: TimerViewModel) {
+        self.timeViewModel = timeViewModel
     }
     
     fileprivate var body: some View {
-        Text("SetTimerView")
+        TitleView()
+        
+        Spacer()
+            .frame(height: 50)
+        
+        TimerPickerView(timeViewModel: timeViewModel)
+        
+        Spacer()
+            .frame(height: 30)
+        
+        TimerCreateBtnView(timeViewModel: timeViewModel)
+        
+        Spacer()
     }
 }
 
