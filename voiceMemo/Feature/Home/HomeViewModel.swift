@@ -12,7 +12,7 @@ class HomeViewModel: ObservableObject {
     @Published var voiceRecordersCount: Int
     
     init(
-        selectedTab: Tab = .voiceRecoreder,
+        selectedTab: Tab = .voiceRecorder,
         todosCount: Int = 0,
         memoCount: Int = 0,
         voiceRecordersCount: Int = 0

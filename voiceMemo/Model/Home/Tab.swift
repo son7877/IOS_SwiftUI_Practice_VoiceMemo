@@ -8,7 +8,7 @@ import Foundation
 enum Tab {
     case todoList
     case memo
-    case voiceRecoreder
+    case voiceRecorder
     case timer
     case setting
 }
