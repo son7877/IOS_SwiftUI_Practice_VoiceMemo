@@ -16,13 +16,16 @@ struct OnboardingView: View {
         NavigationStack(path: $pathModel.paths) {
             OnboardingContentView(onboardingViewModel: onboardingViewModel)
                 .navigationDestination(
-                    for: PathType.self, 
+                    for: PathType.self,
                     destination: { pathType in
                         switch pathType {
                         case .homeView:
                             // 홈 뷰로 이동
                             HomeView()
                                 .navigationBarBackButtonHidden()
+                                .environmentObject(todoListViewModel)
+                                .environmentObject(memoListViewModel)
+                                
                         case .todoView:
                             // 할 일 뷰로 이동
                             TodoView()

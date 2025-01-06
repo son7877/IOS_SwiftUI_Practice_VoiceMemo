@@ -7,7 +7,7 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var pahtModel: PathModel
-    @StateObject private var homeViewModel: HomeViewModel
+    @StateObject private var homeViewModel = HomeViewModel()
     
     var body: some View {
         ZStack {
@@ -70,7 +70,7 @@ struct HomeView: View {
 }
 
 private struct SeperatorLineView: View {
-    var body: some View {
+    fileprivate var body: some View {
         VStack {
             Spacer()
             
