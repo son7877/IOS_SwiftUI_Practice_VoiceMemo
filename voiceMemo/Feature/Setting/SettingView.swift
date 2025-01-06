@@ -49,7 +49,7 @@ private struct TotalTabCountView: View {
     }
 }
 
-// MARK: - 각 탭 설정된 카운트 뷰 (공통 뷰 컴포넌트)
+// MARK: - TabCountView
 private struct TabCountView: View {
   private var title: String
   private var count: Int
